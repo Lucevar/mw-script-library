@@ -1,0 +1,7 @@
+// references: uesp https://en.uesp.net/wiki/Morrowind_Mod:Categorical_Function_List 
+
+tcl // toggle collision
+tai // toggle ai
+showvars // show local vars of npc selected. if none selected shows globals
+ra // reset actors
+tpg // toggle path grid

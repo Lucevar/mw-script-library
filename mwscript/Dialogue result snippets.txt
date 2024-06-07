@@ -1,0 +1,32 @@
+// references: uesp https://en.uesp.net/wiki/Morrowind_Mod:Categorical_Function_List 
+
+set [global] to [int]
+// for rent, 0 = unrented, 1 = rented
+
+player->additem [id] 1
+additem [id] 1
+
+player->removeitem [id] 1
+removeitem [id] 1
+
+Journal x 100
+
+ExplodeSpell [spell id]
+
+AiFollow Player 0 0 0 0 0 0 0 // follow the player
+"urvel dulni"->AIWander 0 0 0 0 0 0 // wander around, stop following
+
+"drals indobar"->StartCombat Player
+StartCombat Player
+SetFight 100
+
+"Drores Arvel"->StopCombat
+StopCombat
+SetFight 0
+
+AddTopic [topic]
+Choice "Choice Text" 1 "Choice 2" 2
+
+ClearInfoActor // for generic topics that use variables, so that it doesn't clutter the journal
+
+Goodbye

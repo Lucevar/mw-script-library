@@ -1,0 +1,26 @@
+// references: uesp https://en.uesp.net/wiki/Morrowind_Mod:Categorical_Function_List 
+
+ExplodeSpell [spell id]
+
+if ( GetCurrentWeather <= 3 ) // good weather up to overcast, includes foggy
+if ( GetCurrentWeather > 3 ) // bad weather
+
+                        0       Clear
+                        1       Cloudy
+                        2       Foggy
+                        3       Overcast
+                        4       Rain
+                        5       Thunder
+                        6       Ash
+                        7       Blight
+                        8       Snow (Bloodmoon)
+                        9       Blizzard (Bloodmoon)
+
+
+ForceGreeting // uesp notes: Makes the NPC start dialogue with the PC. Does not matter where the NPC is. The only exception to this appears to be that NPCs not in the current cell can only be used in a script if the player has visited the cell with the NPC within 72 hours. Note that this applies to ForceGreeting and other script functions as well. You can get around this limitation by using a PositionCell on the NPC once per day. Even if their position is not actually changed the 72 hour limit will no longer apply (some say you do actually have to change the NPC's cell with this technique).
+
+GetDistance
+
+GetJournalIndex [journal id]
+
+SetJournalIndex [Journal id] [index] // uesp notes: SetJournalIndex is primarily useful to set a Journal to an entry without displaying any journal text. This can be used as a form of a quest variable without being forced to actually create a global variable to govern that quest -- for example, to display something to the player, and then set a special flag for that quest you can set the index to 46, and then check to see if the dialogue entry is 46 instead of 45 to have the NPC do something different when reacting to the player. Essentially, it's a way of tracking the player's shenanigans without tipping off the player with a journal entry.

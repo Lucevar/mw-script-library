@@ -1,0 +1,244 @@
+begin luce_AM_Bard1_out_script
+
+short reposition
+
+float npcX
+float npcY
+float npcZ
+float npcZrot
+short positionOnce
+float t1
+short state
+short i1
+
+if ( state )
+	set state to 0
+	StopSound AM_Music1
+	StopSound AM_Music2
+	StopSound AM_Music3
+	StopSound AM_Music4
+	StopSound AM_Music5
+	StopSound AM_Music6
+	StopSound AM_Music7
+	StopSound AM_Music8
+	StopSound AM_Music9
+	StopSound AM_Music10
+	StopSound AM_Music11
+	StopSound AM_Music12
+	StopSound AM_Music13
+	StopSound AM_Music14
+	return
+endif
+
+if ( positionOnce == 2 )
+	return
+endif
+
+; commented out to keep silence timer t1 running
+; if ( MenuMode )
+	; return
+; endif
+
+if ( GetHealth <= 0 )
+	while ( GetItemCount AM_Lute )
+		RemoveItem AM_Lute 1
+	endwhile
+	set positionOnce to 2
+	set state to 1
+	return
+endif
+
+if ( GetHealthGetRatio < 0.04 )
+	ModCurrentHealth -1
+	return
+endif
+
+if ( ab01CellChanged )
+	if ( GetDisabled )
+		if ( GameHour >= 7 )
+			if ( GameHour <= 20 )
+				if ( Random 1001 < 800 )
+					if ( GetCurrentWeather <= 3 )
+						enable
+					endif
+				endif
+			endif
+		endif
+	else
+		if ( GetCurrentWeather > 3 )
+			disable
+		endif
+		if ( GameHour > 20 )
+			disable
+		elseif ( GameHour < 7 )
+			disable
+		endif
+	endif
+	if ( GetDisabled )
+		set state to 1
+	endif
+	if ( reposition )
+		set reposition to 0
+		if ( GetItemCount AM_Lute )
+		else
+			AddItem AM_Lute 1
+		endif
+		SetPos X npcX
+		SetPos Y npcY
+		SetPos Z npcZ
+		SetAngle Z npcZrot
+		Equip AM_Lute
+	endif
+	return
+endif
+
+if ( GetDisabled )
+	return
+endif
+
+if ( positionOnce == 0 )
+	if ( GetItemCount AM_Lute )
+	else
+		AddItem AM_Lute 1
+	endif
+	set npcX to GetPos X
+	set npcY to GetPos Y
+	set npcZ to GetPos Z
+	set npcZrot to GetAngle Z
+	set positionOnce to 1
+	Equip AM_Lute
+endif
+
+if ( reposition )
+elseif ( GetTarget Player )
+	set reposition to 1
+	while ( GetItemCount AM_Lute )
+		RemoveItem AM_Lute 1
+	endwhile
+	set state to 1
+	return
+endif
+
+if ( t1 < 3 )
+	set t1 to ( t1 + GetSecondsPassed )
+else
+	set t1 to Random 1001
+	set t1 to ( t1 * 0.0004 )
+	set t1 to ( t1 - 1.5 )
+	if ( GetInterior )
+	elseif ( GetDistance player < 5120 )
+	else
+		set state to 1
+		set t1 to ( t1 - 3 )
+		return
+	endif
+	;StreamMusic "abot\10sec_silence.mp3"
+endif
+
+if ( i1 > 1300 )
+	if ( GetSoundPlaying AM_Music14 )
+		return
+	endif
+elseif ( i1 > 1200 )
+	if ( GetSoundPlaying AM_Music13 )
+		return
+	endif
+elseif ( i1 > 1100 )
+	if ( GetSoundPlaying AM_Music12 )
+		return
+	endif
+elseif ( i1 > 1000 )
+	if ( GetSoundPlaying AM_Music11 )
+		return
+	endif
+elseif ( i1 > 900 )
+	if ( GetSoundPlaying AM_Music10 )
+		return
+	endif
+elseif ( i1 > 800 )
+	if ( GetSoundPlaying AM_Music9 )
+		return
+	endif
+elseif ( i1 > 700 )
+	if ( GetSoundPlaying AM_Music8 )
+		return
+	endif
+endif
+
+if ( i1 > 600 )
+	if ( GetSoundPlaying AM_Music7 )
+		return
+	endif
+elseif ( i1 > 500 )
+	if ( GetSoundPlaying AM_Music6 )
+		return
+	endif
+elseif ( i1 > 400 )
+	if ( GetSoundPlaying AM_Music5 )
+		return
+	endif
+elseif ( i1 > 300 )
+	if ( GetSoundPlaying AM_Music4 )
+		return
+	endif
+elseif ( i1 > 200 )
+	if ( GetSoundPlaying AM_Music3 )
+		return
+	endif
+elseif ( i1 > 100 )
+	if ( GetSoundPlaying AM_Music2 )
+		return
+	endif
+elseif ( GetSoundPlaying AM_Music1 )
+	return
+endif
+
+set i1 to Random 1401
+
+if ( i1 > 1300 )
+	PlaySound3D AM_Music14
+	return
+elseif ( i1 > 1200 )
+	PlaySound3D AM_Music13
+	return
+elseif ( i1 > 1100 )
+	PlaySound3D AM_Music12
+	return
+elseif ( i1 > 1000 )
+	PlaySound3D AM_Music11
+	return
+elseif ( i1 > 900 )
+	PlaySound3D AM_Music10
+	return
+elseif ( i1 > 800 )
+	PlaySound3D AM_Music9
+	return
+elseif ( i1 > 700 )
+	PlaySound3D AM_Music8
+	return
+endif
+
+if ( i1 > 600 )
+	PlaySound3D AM_Music7
+	return
+elseif ( i1 > 500 )
+	PlaySound3D AM_Music6
+	return
+elseif ( i1 > 400 )
+	PlaySound3D AM_Music5
+	return
+elseif ( i1 > 300 )
+	PlaySound3D AM_Music4
+	return
+elseif ( i1 > 200 )
+	PlaySound3D AM_Music3
+	return
+elseif ( i1 > 100 )
+	PlaySound3D AM_Music2
+	return
+else
+	PlaySound3D AM_Music1
+endif
+
+end
+
